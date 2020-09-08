@@ -41,10 +41,7 @@ export default {
     }
   },
   methods:{
-    showdata(){
-      console.log("===editor內容===");
-      console.log(this.html_content);
-    }
+
   }
 }
 </script>
