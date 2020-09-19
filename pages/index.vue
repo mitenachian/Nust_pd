@@ -3,9 +3,9 @@
 
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
-<b-alert v-if="token">
+<b-alert v-if="authorized">
   登入成功
-  Name:{{user_name}} - Email:{{user_email}}
+  Name:{{profile.name}} - Email:{{profile.email}}
 </b-alert>
 </div>
 </template>
@@ -13,11 +13,8 @@
 export default {
   data() {
     return {
-      user_id:'',
-      user_name:'',
-      user_email:'',
-      user_groups_list:'',
-      token:''
+      profile: {},
+      authorized: false
     } 
   },
   methods: {
@@ -48,6 +45,7 @@ export default {
     },
     logout() {
       console.log('logout----')
+      let vm = this
       // 檢查登入狀態
       FB.getLoginStatus(function(response) {
         // 檢查登入狀態
@@ -56,9 +54,8 @@ export default {
           FB.api("/me/permissions", "DELETE", function(res) {
             // 用戶登出
             FB.logout();
-            this.user_id='';
-            this.user_name='';
-            this.user_email='';
+            vm.profile = {}
+            vm.authorized = false
             console.log('已登出----')
           });
         } else {
@@ -67,6 +64,7 @@ export default {
       });
     },
     getProfile() {
+       let vm = this
       console.log('進入getProfile--1')
       FB.api(
         '/me',
@@ -74,9 +72,7 @@ export default {
         {"fields":"id,name,email"},
         function(response) {
           // do something
-        this.user_id = response.id;
-        this.user_email = response.email;
-        this.user_name = response.name;
+         vm.$set(vm, 'profile', response)
         console.log(response);
         }
         );
