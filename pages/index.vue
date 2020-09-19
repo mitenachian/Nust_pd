@@ -29,14 +29,14 @@ export default {
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
-          vm.getProfile();
+          this.getProfile();
         } else {
           // 登入狀態 - 未登入
           // 用戶登入(確認授權)
           FB.login(
             function(res) {
               // 獲取用戶個人資料
-              vm.getProfile();
+              this.getProfile();
             },
             // 授權 - 個人資料&Email
             { scope: "public_profile,email" }
