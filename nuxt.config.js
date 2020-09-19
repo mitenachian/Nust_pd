@@ -41,7 +41,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/v-calendar.js', ssr: false },
-    { src: '~/plugins/ckeditor.js', ssr: false }
+    { src: '~/plugins/ckeditor.js', ssr: false },
+    { src: '~plugins/fb-sdk.js', ssr: false }
   ],
   /*
   ** Auto import components

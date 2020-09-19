@@ -1,93 +1,58 @@
 <template>
-  <div class="container">
-      <div>
-        <no-ssr>
-          <!-- <v-calendar is-expanded :columns="2"></v-calendar> -->
-        </no-ssr>
-      </div>
-      <div class="container">
-        <no-ssr>
-          <ckeditor :config="editorConfig" :editor="editor" v-model="html_content"></ckeditor>
-        </no-ssr>
-      </div>
-      <div class="container">
-        <div>{{html_content}}</div>
-      </div>
-  </div>
+<div>
+
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="login();">
+</fb:login-button>
+
+</div>
 </template>
-
 <script>
-let ClassicEditor
-if (process.browser) {
-  ClassicEditor = require('@ckeditor/ckeditor5-build-classic')
-}
-// 因node 沒有 window 屬性，故以此方式載入 Classic 樣式
-
 export default {
-  data() {
-    return {
-      attributes: [{
-          key: 'today',
-          highlight: true,
-          dates: new Date()
-        }],
-      // CK edit
-      html_content:'',
-      editor: ClassicEditor,// Classic 樣式
-      editorConfig: {
-        // 客製化設定goes here
-         toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-      },
+  methods: {
+    login() {
+      const vm = this;
+      // 檢查登入狀態
+      FB.getLoginStatus(function(response) {
+        // 登入狀態 - 已登入
+        if (response.status === "connected") {
+          // 獲取用戶個人資料
+          vm.getProfile();
+        } else {
+          // 登入狀態 - 未登入
+          // 用戶登入(確認授權)
+          FB.login(
+            function(res) {
+              // 獲取用戶個人資料
+              vm.getProfile();
+            },
+            // 授權 - 個人資料&Email
+            { scope: "public_profile,email" }
+          );
+        }
+      });
+    },
+    logout() {
+      // 檢查登入狀態
+      FB.getLoginStatus(function(response) {
+        // 檢查登入狀態
+        if (response.status === "connected") {
+          // 移除授權
+          FB.api("/me/permissions", "DELETE", function(res) {
+            // 用戶登出
+            FB.logout();
+          });
+        } else {
+          // do something
+        }
+      });
+    },
+    getProfile() {
+      FB.api("/me?fields=name,id,email", function(res) {
+        // do something
+      });
     }
   },
-  methods:{
-
-  }
-}
+};
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-.ck-editor__editable_inline {
-    min-height: 500px;
-    min-width: 800px;
-}
-</style>
