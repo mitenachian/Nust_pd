@@ -3,7 +3,10 @@
 
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
-<b-alert v-if="test_res">{{test_res}}</b-alert>
+<b-alert v-if="user_id">
+  登入成功
+  {{user_name}} - {{user_email}}
+</b-alert>
 </div>
 </template>
 <script>
@@ -14,7 +17,6 @@ export default {
       user_name:'',
       user_email:'',
       user_groups_list:'',
-      test_res:[],
     } 
   },
   methods: {
@@ -52,7 +54,9 @@ export default {
           FB.api("/me/permissions", "DELETE", function(res) {
             // 用戶登出
             FB.logout();
-            this.test_res=[];
+            this.user_id='';
+            this.user_name='';
+            this.user_email='';
           });
         } else {
           // do something
@@ -67,7 +71,9 @@ export default {
         {"fields":"id,name,email"},
         function(response) {
           // do something
-        this.test_res = response
+        this.user_id = response.id;
+        this.user_email = response.email;
+        this.user_name = response.name;
         console.log(response);
         }
         );
