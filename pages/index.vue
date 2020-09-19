@@ -45,7 +45,7 @@ export default {
       });
     },
     logout() {
-      console.log('進入getProfile--1')
+      console.log('logout----')
       // 檢查登入狀態
       FB.getLoginStatus(function(response) {
         // 檢查登入狀態
@@ -57,6 +57,7 @@ export default {
             this.user_id='';
             this.user_name='';
             this.user_email='';
+            console.log('已登出----')
           });
         } else {
           // do something
@@ -64,6 +65,7 @@ export default {
       });
     },
     getProfile() {
+      const vm = this;
       console.log('進入getProfile--1')
       FB.api(
         '/me',
@@ -71,9 +73,9 @@ export default {
         {"fields":"id,name,email"},
         function(response) {
           // do something
-        this.user_id = response.id;
-        this.user_email = response.email;
-        this.user_name = response.name;
+        vm.user_id = response.id;
+        vm.user_email = response.email;
+        vm.user_name = response.name;
         console.log(response);
         }
         );
