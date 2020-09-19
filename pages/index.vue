@@ -1,10 +1,6 @@
 <template>
 <div>
 
-<fb:login-button 
-  scope="public_profile,email"
-  onlogin="checkLoginState();">
-</fb:login-button>
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
 <b-alert v-if="test_res">{{test_res}}</b-alert>
@@ -18,16 +14,11 @@ export default {
       user_name:'',
       user_email:'',
       user_groups_list:'',
-      test_res:'',
+      test_res:[],
     } 
   },
   methods: {
-    checkLoginState() {
-      console.log('checkLoginState')
-    FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
-        });
-      },
+
     login() {
       const vm = this;
       // 檢查登入狀態
@@ -61,6 +52,7 @@ export default {
           FB.api("/me/permissions", "DELETE", function(res) {
             // 用戶登出
             FB.logout();
+            this.test_res=[];
           });
         } else {
           // do something
@@ -72,7 +64,7 @@ export default {
       FB.api(
         '/me',
         'GET',
-        {"fields":"id,name"},
+        {"fields":"id,name,email"},
         function(response) {
           // do something
         this.test_res = response
