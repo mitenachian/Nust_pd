@@ -26,17 +26,18 @@ export default {
       const vm = this;
       // 檢查登入狀態
       FB.getLoginStatus(function(response) {
+        console.log('getLoginStatus--1')
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
-          this.getProfile();
+          vm.getProfile();
         } else {
           // 登入狀態 - 未登入
           // 用戶登入(確認授權)
           FB.login(
             function(res) {
               // 獲取用戶個人資料
-              this.getProfile();
+              vm.getProfile();
             },
             // 授權 - 個人資料&Email
             { scope: "public_profile,email" }
@@ -45,6 +46,7 @@ export default {
       });
     },
     logout() {
+      console.log('進入getProfile--1')
       // 檢查登入狀態
       FB.getLoginStatus(function(response) {
         // 檢查登入狀態
@@ -60,7 +62,9 @@ export default {
       });
     },
     getProfile() {
+      console.log('進入getProfile--1')
       FB.api("/me?fields=name,id,email", function(res) {
+        console.log('進入getProfile--2')
         // do something
         this.test_res = res
       });
