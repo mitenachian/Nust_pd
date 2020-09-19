@@ -3,7 +3,7 @@
 
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
-<b-alert v-if="user_id">
+<b-alert v-if="token">
   登入成功
   Name:{{user_name}} - Email:{{user_email}}
 </b-alert>
