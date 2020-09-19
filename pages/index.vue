@@ -6,6 +6,7 @@
   onlogin="checkLoginState();">
 </fb:login-button>
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
+<b-button  variant="danger" @click="logout()"> FB登出</b-button>
 </div>
 </template>
 <script>
