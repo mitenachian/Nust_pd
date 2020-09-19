@@ -3,9 +3,9 @@
 
 <fb:login-button 
   scope="public_profile,email"
-  onlogin="login();">
+  onlogin="checkLoginState();">
 </fb:login-button>
-
+<b-button  variant="primary" @click="login()"> FB登入</b-button>
 </div>
 </template>
 <script>
@@ -57,7 +57,6 @@ export default {
       });
     },
     getProfile() {
-      
       FB.api("/me?fields=name,id,email", function(res) {
         // do something
         console.log(res.data)
