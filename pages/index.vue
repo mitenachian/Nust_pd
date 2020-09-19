@@ -5,7 +5,7 @@
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
 <b-alert v-if="user_id">
   登入成功
-  {{user_name}} - {{user_email}}
+  Name:{{user_name}} - Email:{{user_email}}
 </b-alert>
 </div>
 </template>
@@ -17,6 +17,7 @@ export default {
       user_name:'',
       user_email:'',
       user_groups_list:'',
+      token:''
     } 
   },
   methods: {
@@ -29,6 +30,7 @@ export default {
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
+          vm.token=response.authResponse.accessToken;
           vm.getProfile();
         } else {
           // 登入狀態 - 未登入
@@ -65,7 +67,6 @@ export default {
       });
     },
     getProfile() {
-      const vm = this;
       console.log('進入getProfile--1')
       FB.api(
         '/me',
@@ -73,9 +74,9 @@ export default {
         {"fields":"id,name,email"},
         function(response) {
           // do something
-        vm.user_id = response.id;
-        vm.user_email = response.email;
-        vm.user_name = response.name;
+        this.user_id = response.id;
+        this.user_email = response.email;
+        this.user_name = response.name;
         console.log(response);
         }
         );
