@@ -22,6 +22,12 @@ export default {
     } 
   },
   methods: {
+    checkLoginState() {
+      console.log('checkLoginState')
+    FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      },
     login() {
       const vm = this;
       // 檢查登入狀態
@@ -63,11 +69,16 @@ export default {
     },
     getProfile() {
       console.log('進入getProfile--1')
-      FB.api("/me?fields=name,id,email", function(res) {
-        console.log('進入getProfile--2')
-        // do something
-        this.test_res = res
-      });
+      FB.api(
+        '/me',
+        'GET',
+        {"fields":"id,name"},
+        function(response) {
+          // do something
+        this.test_res = response
+        console.log(response);
+        }
+        );
     }
   },
 };
