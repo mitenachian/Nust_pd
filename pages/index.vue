@@ -10,6 +10,14 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      user_id:'',
+      user_name:'',
+      user_email:'',
+      user_groups_list:'',
+    } 
+  },
   methods: {
     login() {
       const vm = this;
@@ -49,9 +57,21 @@ export default {
       });
     },
     getProfile() {
+      
       FB.api("/me?fields=name,id,email", function(res) {
         // do something
+        console.log(res.data)
       });
+    },
+    getGroups() {
+      FB.api(
+      '/me/groups',
+      'GET',
+      {},
+      function(response) {
+          // Insert your code here
+      }
+     );
     }
   },
 };
