@@ -7,6 +7,7 @@
 </fb:login-button>
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
+<b-alert v-if="test_res">{{test_res}}</b-alert>
 </div>
 </template>
 <script>
@@ -17,6 +18,7 @@ export default {
       user_name:'',
       user_email:'',
       user_groups_list:'',
+      test_res:'',
     } 
   },
   methods: {
@@ -60,18 +62,8 @@ export default {
     getProfile() {
       FB.api("/me?fields=name,id,email", function(res) {
         // do something
-        console.log(res.data)
+        this.test_res = res
       });
-    },
-    getGroups() {
-      FB.api(
-      '/me/groups',
-      'GET',
-      {},
-      function(response) {
-          // Insert your code here
-      }
-     );
     }
   },
 };
