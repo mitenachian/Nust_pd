@@ -7,6 +7,7 @@
   登入成功
   Name:{{profile.name}} - Email:{{profile.email}}
 </b-alert>
+ Name:{{profile.name}} - Email:{{profile.email}}
 </div>
 </template>
 <script>
@@ -64,16 +65,16 @@ export default {
       });
     },
     getProfile() {
-       let vm = this
+      let vm = this
       console.log('進入getProfile--1')
       FB.api(
         '/me',
         'GET',
         {"fields":"id,name,email"},
         function(response) {
+          console.log(response);
           // do something
          vm.$set(vm, 'profile', response)
-        console.log(response);
         }
         );
     }
