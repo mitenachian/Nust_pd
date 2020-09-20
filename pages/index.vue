@@ -1,6 +1,5 @@
 <template>
 <div>
-
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
 <b-alert  v-model="authorized">
@@ -33,12 +32,11 @@ export default {
         } else {
           // 登入狀態 - 未登入
           // 用戶登入(確認授權)
-          FB.login(
-            function(res) {
-              console.log('login-res')
-              console.log(res)
+          FB.login(function(response) {
+              console.log('FB.login-----res')
+              console.log(response)
               // 獲取用戶個人資料
-              vm.authorized=res.authResponse.accessToken;
+              vm.authorized=response.authResponse.accessToken;
               vm.getProfile();
             },
             // 授權 - 個人資料&Email
