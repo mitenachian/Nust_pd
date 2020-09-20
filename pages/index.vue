@@ -42,7 +42,7 @@ export default {
               vm.getProfile();
             },
             // 授權 - 個人資料&Email
-            { scope: "public_profile,email" }
+            { scope: "groups_access_member_info,public_profile,email" }
           );
         }
       });
