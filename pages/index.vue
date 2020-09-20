@@ -77,6 +77,7 @@ export default {
           console.log(response);
           // do something
          vm.$set(vm, 'profile', response)
+         console.log(vm.profile)
         }
         );
     }
