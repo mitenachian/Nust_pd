@@ -14,7 +14,8 @@ export default {
   data() {
     return {
       profile: {},
-      authorized: false
+      authorized: false,
+      token:''
     } 
   },
   methods: {
@@ -27,7 +28,8 @@ export default {
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
-          vm.authorized=response.authResponse.accessToken;
+          vm.authorized=true;
+          vm.token=response.authResponse.accessToken;
           vm.getProfile();
         } else {
           // 登入狀態 - 未登入
@@ -36,7 +38,8 @@ export default {
               console.log('FB.login-----res')
               console.log(response)
               // 獲取用戶個人資料
-              vm.authorized=response.authResponse.accessToken;
+              vm.authorized=true;
+              vm.token=response.authResponse.accessToken;
               vm.getProfile();
             },
             // 授權 - 個人資料&Email
@@ -73,11 +76,10 @@ export default {
         'GET',
         {"fields":"id,name,email,groups"},
         function(response) {
-          console.log('function(response)');
+          console.log('function(response)---id,name,email,groups');
           console.log(response);
           // do something
          vm.$set(vm, 'profile', response)
-         console.log(vm.profile)
         }
         );
     }
