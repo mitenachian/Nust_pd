@@ -7,7 +7,7 @@
   登入成功
   Name:{{profile.name}} - Email:{{profile.email}}
 </b-alert>
- Name:{{profile.name}} - Email:{{profile.email}}
+<p v-if="profile.name"> Name:{{profile.name}} - Email:{{profile.email}}</p>
 </div>
 </template>
 <script>
@@ -72,6 +72,7 @@ export default {
         'GET',
         {"fields":"id,name,email,groups"},
         function(response) {
+          console.log('function(response)');
           console.log(response);
           // do something
          vm.$set(vm, 'profile', response)
