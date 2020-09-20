@@ -3,7 +3,7 @@
 
 <b-button  variant="primary" @click="login()"> FB登入</b-button>
 <b-button  variant="danger" @click="logout()"> FB登出</b-button>
-<b-alert :show="authorized">
+<b-alert  v-model="authorized">
   登入成功
   Name:{{profile.name}} - Email:{{profile.email}}
 </b-alert>
