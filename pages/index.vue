@@ -42,7 +42,8 @@ export default {
               vm.getProfile();
             },
             // 授權 - 個人資料&Email
-            { scope: "groups_access_member_info,public_profile,email" }
+            { scope: "public_profile,email" }
+            // Invalid Scopes:groups_access_member_info
           );
         }
       });
