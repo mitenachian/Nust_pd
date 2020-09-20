@@ -6,7 +6,6 @@
   登入成功
   Name:{{profile.name}} - Email:{{profile.email}}
 </b-alert>
-<p v-if="profile.name"> Name:{{profile.name}} - Email:{{profile.email}}</p>
 </div>
 </template>
 <script>
@@ -81,7 +80,7 @@ export default {
           // do something
          vm.$set(vm, 'profile', response)
         }
-        );
+      );
     }
   },
 };
