@@ -19,7 +19,6 @@ export default {
     } 
   },
   methods: {
-
     login() {
       const vm = this;
       // 檢查登入狀態
@@ -29,7 +28,7 @@ export default {
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
-          vm.token=response.authResponse.accessToken;
+          vm.authorized=response.authResponse.accessToken;
           vm.getProfile();
         } else {
           // 登入狀態 - 未登入
