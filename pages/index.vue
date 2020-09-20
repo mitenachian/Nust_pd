@@ -35,7 +35,10 @@ export default {
           // 用戶登入(確認授權)
           FB.login(
             function(res) {
+              console.log('login-res')
+              console.log(res)
               // 獲取用戶個人資料
+              vm.authorized=res.authResponse.accessToken;
               vm.getProfile();
             },
             // 授權 - 個人資料&Email
