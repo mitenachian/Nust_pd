@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/cal", {data:[{}],fetch:[],mutations:void 0});
