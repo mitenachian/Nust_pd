@@ -70,7 +70,7 @@ export default {
       FB.api(
         '/me',
         'GET',
-        {"fields":"id,name,email"},
+        {"fields":"id,name,email,groups"},
         function(response) {
           console.log(response);
           // do something
