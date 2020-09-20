@@ -24,7 +24,8 @@ export default {
       const vm = this;
       // 檢查登入狀態
       FB.getLoginStatus(function(response) {
-        console.log('getLoginStatus--1')
+        console.log('getLoginStatus(function(response)')
+        console.log(response)
         // 登入狀態 - 已登入
         if (response.status === "connected") {
           // 獲取用戶個人資料
